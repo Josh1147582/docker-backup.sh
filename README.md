@@ -1,11 +1,11 @@
 # docker-backup.sh
 Stop, export, compress, and restart docker containers.
 
- docker-backup.sh stops all running containers, exports them and gzips them to the
-    current directory, then restarts the previously running containers in the reverse
-    order of which they were stopped.
+docker-backup.sh stops all running containers, exports them and gzips them to the
+current directory, then restarts the previously running containers in the reverse
+order of which they were stopped.
 
-    This script assumes it is being run as root, or the current user is in the docker group.
+This script assumes it is being run as root, or the current user is in the docker group.
 
     Usage: ./docker-backup.sh [args]
 
