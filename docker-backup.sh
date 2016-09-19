@@ -103,7 +103,7 @@ then
 
     for i in $VOLUMES
     do
-        tar czf $OUTDIR/$(basename $i).tar.gz $i && echo "Backed up "$i &
+        tar czf $OUTDIR/$(basename $i)-$(date +%Y%m%d-%H%M%S).tar.gz $i && echo "Backed up "$i &
     done
 
     IFS=$OLDIFS
