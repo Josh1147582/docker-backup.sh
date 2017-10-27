@@ -12,7 +12,7 @@ while getopts "h?v:o:na" opt; do
     case "$opt" in
         h|\?)
             echo "
-    docker-backup.sh stops all running containers, exports them and gzips them to the
+    docker-backup.sh stops all running containers, exports them and tars them to the
     current directory, then restarts the previously running containers in the reverse
     order of which they were stopped.
 
@@ -89,7 +89,7 @@ wait
 echo Exporting containers...
 for i in $CONTAINERS
 do
-    docker export $i | gzip -c > $OUTDIR/$i-$(date +%Y%m%d-%H%M%S).tar.gz && echo "Exported "$i &
+    docker export $i > $OUTDIR/$i.tar && echo "Exported "$i &
 done
 
 wait
@@ -103,11 +103,13 @@ then
 
     for i in $VOLUMES
     do
-        tar czf $OUTDIR/$(basename $i)-$(date +%Y%m%d-%H%M%S).tar.gz $i && echo "Backed up "$i &
+        tar cf $OUTDIR/$(basename $i).tar $i && echo "Backed up "$i &
     done
 
     IFS=$OLDIFS
 fi
+
+wait
 
 # Restart previously running containers (if any were given or it was requested)
 if [ ! $NOAUTORESTART ]
